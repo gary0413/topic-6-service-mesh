@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-server-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: istio-server
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: istio-server
+        version: v1
+    spec:
+      containers:
+        - name: istio-server
+          image: ethan510010/istio-server:v1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-server-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: istio-server
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: istio-server
+        version: v2
+    spec:
+      containers:
+        - name: istio-server
+          image: ethan510010/istio-server:v2.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-server
+spec:
+  type: ClusterIP
+  selector:
+    app: istio-server
+  ports:
+    - name: http-5000  # 修改端口名
+      port: 5000
+      targetPort: 5000

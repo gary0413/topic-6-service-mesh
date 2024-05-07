@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-server
+spec:
+  hosts:
+  - istio-server
+  http:
+  - fault:
+      delay:
+        percentage:
+          value: 50
+        fixedDelay: 5s
+    route:
+      - destination:
+          host: istio-server
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-client
+spec:
+  hosts:
+  - istio-client
+  http:
+  - route:
+    - destination:
+        host: istio-client
+    timeout: 1s
