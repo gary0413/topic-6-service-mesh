@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # istio
 service mesh
 =======
@@ -451,4 +450,3 @@ service mesh
     ```
     
 6. 其餘apply yaml 即可達成
->>>>>>> 1eb67f5 ([Update] add demo & readme)
